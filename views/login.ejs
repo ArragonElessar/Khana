@@ -3,6 +3,8 @@
 
 <head>
     <%- include('./partials/head.ejs')%>
+        <script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
+        <script src="js/login.js" type="text/javascript"></script>
 </head>
 
 <body style="background: var(--bs-gray);">
@@ -11,32 +13,26 @@
     </header>
     <main>
         <section class="text-center login-clean" style="background: var(--bs-gray);">
-            <form method="post">
+            <form>
                 <h2 class="visually-hidden">Login Form</h2>
-                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password">
+                <div class="mb-3">
+                    <input class="form-control" type="email" name="email" id="email" placeholder="Email">
                 </div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit"
-                        style="background: var(--bs-indigo);">Log In</button><button
-                        class="btn btn-primary d-block w-100" type="submit" style="background: var(--bs-indigo);">Google
-                        Login</button></div><a class="forgot" href="#">Forgot your email or password?</a>
+                <div class="mb-3">
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary d-block w-100" type="button" style="background: var(--bs-indigo);"
+                        id="login_button">Log In</button>
+                    <button class="btn btn-primary d-block w-100" type="button" style="background: var(--bs-indigo);"
+                        id="google_button">Google
+                        Login</button>
+                </div><a class="forgot" href="#">Forgot your email or password?</a>
             </form>
         </section>
     </main>
-    <footer class="footer-basic" style="height: 10%;width: 100%;">
-        <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
-                    class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
-                href="#"><i class="icon ion-social-facebook"></i></a></div>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Home</a></li>
-            <li class="list-inline-item"><a href="#">Services</a></li>
-            <li class="list-inline-item"><a href="#">About</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-        </ul>
-        <p class="copyright">Company Name © 2021</p>
-    </footer>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <%- include('./partials/footer.ejs') %>
+
 </body>
 
 </html>
