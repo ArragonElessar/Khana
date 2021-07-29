@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs')%>
+</head>
+
+<body style="background: var(--bs-gray);">
+    <header>
+        <%- include('./partials/nav.ejs') %>
+    </header>
+    <main>
+        <section class="text-center login-clean" style="background: var(--bs-gray);">
+            <form method="post">
+                <h2 class="visually-hidden">Login Form</h2>
+                <div class="mb-3"><select class="form-select" name="type">
+                        <optgroup label="This is a group">
+                            <option value="12" selected="">This is item 1</option>
+                            <option value="13">This is item 2</option>
+                            <option value="14">This is item 3</option>
+                        </optgroup>
+                    </select></div>
+                <div class="mb-3"><select class="form-select" name="state">
+                        <option value="12" selected="">This is item 1</option>
+                        <option value="13">This is item 2</option>
+                        <option value="14">This is item 3</option>
+                    </select></div>
+                <div class="mb-3"><select class="form-select" name="city ">
+                        <option value="12" selected="">This is item 1</option>
+                        <option value="13">This is item 2</option>
+                        <option value="14">This is item 3</option>
+                    </select></div>
+                <div class="mb-3"><input class="form-control" type="email" name="addline1" placeholder="Address Line 1">
+                </div>
+                <div class="mb-3"><input class="form-control" type="text" name="password" placeholder="Address Line 2">
+                </div>
+                <div class="mb-3"></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label
+                        class="form-check-label" for="formCheck-1" style="text-align: left;">Use my location for
+                        address</label></div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit"
+                        style="background: var(--bs-indigo);">Save</button></div>
+            </form>
+        </section>
+        <%- include('./partials/footer.ejs') %>
+    </main>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

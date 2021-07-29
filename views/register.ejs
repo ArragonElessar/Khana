@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs')%>
+</head>
+
+<body style="background: var(--bs-gray);">
+    <main>
+        <header>
+            <%- include('./partials/nav.ejs') %>
+        </header>
+        <section class="login-clean" style="background: var(--bs-gray);color: var(--bs-white);">
+            <form method="post">
+                <h2 class="visually-hidden">Login Form</h2>
+                <div class="mb-3"><input class="form-control" type="text" name="name" placeholder="Name"></div>
+                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label
+                        class="form-check-label" for="formCheck-1" style="font-size: 12px;">I agree terms and
+                        conditions</label></div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit"
+                        style="color: var(--bs-white);background: var(--bs-indigo);">Sign Up</button><button
+                        class="btn btn-primary d-block w-100" type="submit" style="background: var(--bs-indigo);">Google
+                        Account</button></div>
+            </form>
+        </section>
+        <footer class="footer-basic" style="height: 10%;width: 100%;">
+            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
+                        class="icon ion-social-snapchat"></i></a><a href="#"><i
+                        class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a>
+            </div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Home</a></li>
+                <li class="list-inline-item"><a href="#">Services</a></li>
+                <li class="list-inline-item"><a href="#">About</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">Company Name © 2021</p>
+        </footer>
+    </main>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

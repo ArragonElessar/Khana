@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs')%>
+        <script src="js/functions.js" type="text/javascript"></script>
+</head>
+
+<body style="background: var(--bs-gray);">
+    <header>
+        <%- include('./partials/nav.ejs') %>
+    </header>
+    <main class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="width: 25%;"><img></div>
+                <div class="col-md-6" style="width: 75%;"></div>
+            </div>
+        </div>
+        <div class="container" style="height: 60%;width: 100%;">
+            <div class="row">
+                <div class="col-md-12"><iframe class="border rounded-0 border-primary shadow" allowfullscreen=""
+                        frameborder="0" loading="lazy"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBqKeIpYeTqZ9bpLlWeEsmOOH253ctLwx4&amp;q=Thane%2C+Maharashtra&amp;zoom=13"
+                        width="95%" height="50%"
+                        style="border-width: 5px;border-style: hidden;height: 400px;padding: 5px;"></iframe></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="width: 25%;"><img></div>
+                <div class="col-md-6" style="width: 75%;"></div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-basic" style="height: 5%;width: 100%;border-style: none;">
+        <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
+                    class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
+                href="#"><i class="icon ion-social-facebook"></i></a></div>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Home</a></li>
+            <li class="list-inline-item"><a href="#">Services</a></li>
+            <li class="list-inline-item"><a href="#">About</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+        </ul>
+        <p class="copyright">Company Name © 2021</p>
+    </footer>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
