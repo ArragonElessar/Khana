@@ -31,11 +31,6 @@ app.use(express.json())
 // morgan
 app.use(morgan('dev'))
 
-//db testing
-
-
-
-
 // Main routes
 app.get('/', mainRoutes.index)
 app.get('/login', mainRoutes.login)
@@ -47,6 +42,7 @@ app.get('/register/add_address', mainRoutes.address)
 app.post('/handler/login', (req, res) => {
     db.select(client, 'password', 'email', req.body.email).then(response => {
         if (response[0].password == req.body.password) {
+            db.log(client, req.body.email, 'login');
             res.send(true);
         } else {
             res.send(false);
@@ -54,10 +50,8 @@ app.post('/handler/login', (req, res) => {
     })
 })
 app.post('/handler/register', (req, res) => {
-    console.log(req.body);
     db.create_user(client, req.body.name, req.body.email, req.body.password).then((ret) => {
+        db.log(client, req.body.email, 'registered');
         res.send(ret)
     })
-
-
 })
