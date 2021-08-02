@@ -9,7 +9,7 @@ const select_all = (client) => {
 }
 async function log(client, email, message) {
     await client.query(`INSERT INTO public.user_log(email, log) VALUES ('${email}', '${message}')`)
-
+    return true
 }
 async function select(client, out_field, in_field, in_value) {
     let ret = await client.query(`SELECT ${out_field} FROM users WHERE ${in_field} = '${in_value}'`)
@@ -29,9 +29,16 @@ async function create_user(client, name, email, password) {
         return true;
     }
 }
+async function logout(client, req) {
+    log(client, req.body.email, 'logout').then(ret => {
+        return ret
+    })
+}
+
 module.exports = {
     select_all,
     select,
     create_user,
-    log
+    log,
+    logout
 }

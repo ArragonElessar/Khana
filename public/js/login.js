@@ -12,6 +12,10 @@ $(document).ready(function () {
             if (ret) {
                 window.location.href = '/';
             }
+            else {
+                $(".form-control").css("border-color", 'red');
+                alert("Incorrect Username or password");
+            }
         })
     })
 })

@@ -1,17 +1,24 @@
-const index = (req, res) => {
-    res.render('index', { title: 'Home' })
+const index = (req, res, session) => {
+    console.log(session)
+    res.render('index', { title: 'Home', session: session })
 }
 
-const login = (req, res) => {
-    res.render('login', { title: 'Login' });
+const login = (req, res, session) => {
+    console.log(session)
+    res.render('login', { title: 'Login', session: session })
 }
 
-const register = (req, res) => {
-    res.render('register', { title: 'Register' });
+
+const register = (req, res, session) => {
+    console.log(session)
+    res.render('register', { title: 'Register', session: session })
 }
-const address = (req, res) => {
-    res.render('address', { title: 'Address' });
+
+const address = (req, res, session) => {
+    console.log(session)
+    res.render('address', { title: 'Address', session: session })
 }
+
 
 module.exports = {
     index,
