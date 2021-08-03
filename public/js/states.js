@@ -1,3 +1,5 @@
+// states data is stored as an array of objects
+// each object has state name, and districts
 const states = [
     {
         "state": "Andhra Pradesh",
@@ -897,6 +899,8 @@ const states = [
         ]
     }
 ]
+
+// function to send state names as an object
 function send_states() {
     let state_list = { all_states: [] };
     for (let i = 0; i < states.length; i++) {
@@ -904,15 +908,19 @@ function send_states() {
     }
     return state_list
 }
+
+// function to send cities of a given state as an array
 function send_cities(state) {
     for (let i = 0; i < states.length; i++) {
         if (states[i].state == state) {
             return states[i].districts;
         }
     }
+    // in off chance that wrong state is sent
     return 'not found';
 }
 
+// export functions
 module.exports = {
     send_states,
     send_cities
