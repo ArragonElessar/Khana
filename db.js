@@ -8,11 +8,13 @@ const select_all = (client) => {
     });
 }
 async function log(client, email, message) {
-    await client.query(`INSERT INTO public.user_log(email, log) VALUES ('${email}', '${message}')`)
+    await client.query(`INSERT INTO public.user_log(email, log) 
+    VALUES ('${email}', '${message}')`)
     return true
 }
 async function select(client, out_field, in_field, in_value) {
-    let ret = await client.query(`SELECT ${out_field} FROM users WHERE ${in_field} = '${in_value}'`)
+    let ret = await client.query(`SELECT ${out_field} FROM users 
+    WHERE ${in_field} = '${in_value}'`)
     return ret.rows
 }
 
@@ -35,10 +37,19 @@ async function logout(client, req) {
     })
 }
 
+async function update_address(client, type, email, address) {
+    client.query(`UPDATE public.users
+	SET ${type} = '${address}'
+	WHERE email='${email}';`).then(ret => {
+        return true
+    })
+}
+
 module.exports = {
     select_all,
     select,
     create_user,
     log,
-    logout
+    logout,
+    update_address
 }

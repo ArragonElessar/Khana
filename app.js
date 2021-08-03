@@ -19,17 +19,13 @@ const client = new Client({
 
 client.connect();
 
-// trial session configuration
-/*let session = {
-    login_state: false,
-    email: '',
-}*/
-
+// states json testing state
 
 // main routes coontroller
 const mainRoutes = require('./Controllers/main_routes')
 
-// setting up express app and view engine
+// setting up express app and view engine, middleware
+
 const app = express();
 app.listen(process.env.PORT);
 app.set('view engine', 'ejs');
@@ -51,10 +47,19 @@ app.use(session({
 
 
 // Main routes
-app.get('/', (req, res) => { mainRoutes.index(req, res, req.session) })
-app.get('/login', (req, res) => { mainRoutes.login(req, res, req.session) })
-app.get('/register', (req, res) => { mainRoutes.register(req, res, req.session) })
-app.get('/register/add_address', (req, res) => { mainRoutes.register(req, req.res, session) })
+app.get('/', (req, res) => {
+    mainRoutes.index(req, res, req.session)
+})
+app.get('/login', (req, res) => {
+    mainRoutes.login(req, res, req.session)
+})
+app.get('/register', (req, res) => {
+    mainRoutes.register(req, res, req.session)
+})
+app.get('/address', (req, res) => {
+    const states_file = require('./public/js/states')
+    mainRoutes.address(req, res, req.session, states_file.send_states())
+})
 
 
 // request handlers
@@ -66,7 +71,6 @@ app.post('/handler/login', (req, res) => {
             db.log(client, req.body.email, 'login');
             req.session.login_state = true;
             req.session.email = req.body.email;
-            console.log(session)
             res.send(true);
         } else {
             res.send(false);
@@ -83,7 +87,6 @@ app.post('/handler/register', (req, res) => {
 
             res.send(ret)
         } else {
-            console.log('user exists');
             res.send(false);
         }
     })
@@ -93,9 +96,27 @@ app.post('/handler/logout', (req, res) => {
     req.session.destroy();
     db.logout(client, req).then(ret => {
         if (ret) {
-            console.log('logged out')
             res.send(ret);
         }
     })
 
 })
+// address handler
+app.post('/handler/address', (req, res) => {
+    if (req.body.message == 'send address') {
+        db.select(client, req.body.type, 'email', req.body.email).then(response => {
+            res.send(response[0][req.body.type])
+        })
+    }
+    if (req.body.message == 'update address') {
+        db.update_address(client, req.body.type, req.body.email, req.body.address).then(response => {
+            res.send(response)
+        })
+    }
+})
+app.get('/handler/address/:state', (req, res) => {
+    const states_file = require('./public/js/states')
+    const state = req.params.state;
+    res.send(states_file.send_cities(state))
+})
+

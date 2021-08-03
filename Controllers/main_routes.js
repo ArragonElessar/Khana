@@ -1,22 +1,23 @@
 const index = (req, res, session) => {
-    console.log(session)
-    res.render('index', { title: 'Home', session: session })
+    res.render('index', { title: 'Home', session })
 }
 
 const login = (req, res, session) => {
-    console.log(session)
-    res.render('login', { title: 'Login', session: session })
+    res.render('login', { title: 'Login', session })
 }
 
 
 const register = (req, res, session) => {
-    console.log(session)
-    res.render('register', { title: 'Register', session: session })
+    res.render('register', { title: 'Register', session })
 }
 
-const address = (req, res, session) => {
-    console.log(session)
-    res.render('address', { title: 'Address', session: session })
+const address = (req, res, session, states_list) => {
+    if (session.login_state) {
+        res.render('address', { title: 'Address', session, states_list })
+    } else {
+        res.redirect('login')
+    }
+
 }
 
 
