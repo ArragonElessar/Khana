@@ -70,6 +70,26 @@ async function update_address(client, type, email, address) {
         return true
     })
 }
+// cart adder
+async function cart(client, email, id, qty) {
+    client.query(`SELECT qty FROM public.cart 
+    WHERE email='${email}' AND id='${id}'`).then(ret => {
+        if (ret.rows.length > 0) {
+            // exists update
+            client.query(`UPDATE public.cart
+            SET qty='${qty}'
+            WHERE email='${email}' AND id='${id}';`).then(ret => {
+                return true;
+            })
+        } else {
+            client.query(`INSERT INTO public.cart(
+                email, id, qty)
+                VALUES ('${email}', '${id}', '${qty}');`).then(ret => {
+                return true
+            })
+        }
+    })
+}
 
 module.exports = {
     select_all,
@@ -77,5 +97,6 @@ module.exports = {
     create_user,
     log,
     logout,
-    update_address
+    update_address,
+    cart
 }

@@ -1,29 +1,33 @@
+// express
 const express = require('express');
+
+// morgan for logging
 const morgan = require('morgan');
+
+// session and cookie parser to store session data 
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+
+// import database interaction functions 
 const db = require('./db')
+
+// dotenv for env variables
 require('dotenv').config();
 
 // db configuration
 const { Client } = require('pg');
-
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
 });
-
 client.connect();
 
-// states json testing state
-
-// main routes coontroller
+// main routes coontroller file
 const mainRoutes = require('./Controllers/main_routes')
 
 // setting up express app and view engine, middleware
-
 const app = express();
 app.listen(process.env.PORT);
 app.set('view engine', 'ejs');
@@ -47,7 +51,7 @@ app.use(session({
 // Main routes, sending session to every page as a parameter
 app.get('/', (req, res) => {
     // index route
-    mainRoutes.index(req, res, req.session)
+    mainRoutes.index(req, res, req.session, process.env.GOOGLE_API_KEY)
 })
 app.get('/login', (req, res) => {
     // login route
@@ -63,6 +67,10 @@ app.get('/address', (req, res) => {
     // send address route with the states as a param
     mainRoutes.address(req, res, req.session, states_file.send_states())
 })
+app.get('/menu', (req, res) => {
+    // load the menu page
+    mainRoutes.menu(req, res, req.session);
+})
 
 
 // request handlers
@@ -72,17 +80,23 @@ app.post('/handler/login', (req, res) => {
     // getting password from server of given user
     db.select(client, 'password', 'email', req.body.email).then(response => {
         // match form password against server password
-        if (response[0].password == req.body.password) {
-            // logged in, enter in log
-            db.log(client, req.body.email, 'login');
-            // set session variables
-            req.session.login_state = true;
-            req.session.email = req.body.email;
-            res.send(true);
-        } else {
-            // credentials dont match, make css changes hence sent false to frontend
-            res.send(false);
+        try {
+            if (response[0].password == req.body.password) {
+                // logged in, enter in log
+                db.log(client, req.body.email, 'login');
+                // set session variables
+                req.session.login_state = true;
+                req.session.email = req.body.email;
+                res.send(true);
+            } else {
+                // credentials dont match, make css changes hence sent false to frontend
+                res.send(false);
+            }
+        } catch (err) {
+            console.log(err)
+            res.send(false)
         }
+
     })
 })
 // register handler
@@ -130,10 +144,42 @@ app.post('/handler/address', (req, res) => {
         })
     }
 })
+// city handler
 app.get('/handler/address/:state', (req, res) => {
-    // send cities of a givven state
+    // send cities of a given state
     const states_file = require('./public/js/states')
     const state = req.params.state;
     res.send(states_file.send_cities(state))
 })
 
+// menu builder
+app.get('/handler/menu/:keyword', (req, res) => {
+    const menu = require('./public/js/menu_functions')
+    res.send(menu.items(req.params.keyword));
+})
+
+// cart handler
+app.post('/handler/cart/', (req, res) => {
+    console.log(req.body);
+    db.cart(client, req.session.email, req.body.id, req.body.qty)
+    res.send(true)
+})
+
+
+// Google places api
+/*app.post('/places', (req, res) => {
+    const axios = require('axios')
+    const URL = req.body.str;
+    try {
+        axios.get(URL).then(ret => {
+            console.log(ret.data);
+            res.send(ret.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    } catch (err) {
+        res.send(err)
+    }
+
+})
+*/

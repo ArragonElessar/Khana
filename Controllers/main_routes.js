@@ -1,5 +1,5 @@
-const index = (req, res, session) => {
-    res.render('index', { title: 'Home', session })
+const index = (req, res, session, key) => {
+    res.render('index', { title: 'Home', session, key: key })
 }
 
 const login = (req, res, session) => {
@@ -20,10 +20,19 @@ const address = (req, res, session, states_list) => {
 
 }
 
+const menu = (req, res, session) => {
+    if (session.login_state) {
+        res.render('menu', { title: 'Menu', session })
+    }
+    else {
+        res.redirect('login')
+    }
+}
 
 module.exports = {
     index,
     login,
     register,
-    address
+    address,
+    menu,
 }
