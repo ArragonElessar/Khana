@@ -35,25 +35,28 @@
 </div>                                            
 */
 /*
-<tr>
-    <td>Item Name</td>
-    <td>Rate</td>
-    <td style="width: 10%;"><input type="number" style="width: 100%;"
-            min="0" max="5" step="1" placeholder="0"></td>
-</tr>
+$("#tr").after(`<tr><td style="width: 50%;">` + ret.name + `</td>
+        <td>`+ qty + `</td>
+        <td>₹ `+ qty * ret.rate + `</td></tr>`)
 */
+function showCart() {
+
+}
+
+
+
 function cart(id) {
-    console.log(id);
-    console.log($('#' + id).val())
+    let qty = $('#' + id).val()
     $.ajax({
         url: '/handler/cart',
         type: 'POST',
         data: {
             id: id,
-            qty: $('#' + id).val()
+            qty: qty
         }
     }).done(ret => {
         console.log(ret)
+        showCart(id, qty)
     })
 }
 
@@ -61,7 +64,7 @@ function cart(id) {
 
 function getItems(category) {
     $.ajax({
-        url: '/handler/menu/' + category
+        url: '/handler/menu/category&' + category
     }).done(function (ret) {
 
         for (let i = 0; i < ret.length; i++) {

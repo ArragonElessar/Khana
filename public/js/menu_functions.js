@@ -1,4 +1,5 @@
 const menu = [{
+    start_id: 1000,
     category: 'Fries and Sides',
     items: [
         { name: 'Hashbrown', rate: '38', id: 1000 },
@@ -14,6 +15,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1010,
     category: 'Desserts',
     items: [
         { name: 'Soft Serve Cone', rate: '23', id: 1010 },
@@ -23,6 +25,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1014,
     category: 'Deals',
     items: [
         { name: '2 McAloo Tikki + 2 Fries Large', rate: '293', id: 1014 },
@@ -44,6 +47,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1018,
     category: 'Drinks',
     items: [
         { name: 'Coke Float', rate: '44', id: 1018 },
@@ -92,6 +96,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1053,
     category: 'Meals',
     items: [
         { name: 'McSaver McVeggie Meal', rate: '219', id: 1053 },
@@ -262,6 +267,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1106,
     category: 'Super Combo',
     items: [
         { name: '2 McAloo Tikki + 2 Fries Large', rate: '293', id: 1106 },
@@ -318,6 +324,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1117,
     category: 'Burgers and Wraps',
     items: [
         { name: 'McChicken Burger', rate: '112', id: 1117 },
@@ -349,6 +356,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1135,
     category: 'Happy Meals',
     items: [
         { name: 'Masala Wedges Small Happy Mea', rate: '126', id: 1135 },
@@ -370,6 +378,7 @@ const menu = [{
     ]
 },
 {
+    start_id: 1143,
     category: 'Popular Menu',
     items: [
         { name: 'McChicken Burger', rate: '112', id: 1143 },
@@ -385,7 +394,7 @@ const menu = [{
     ]
 }]
 
-function items(category) {
+function sendItemsbyCategory(category) {
     for (let i = 0; i < menu.length; i++) {
         if (menu[i].category == category) {
             return menu[i].items
@@ -393,8 +402,21 @@ function items(category) {
     }
     return [];
 }
+function sendItemsbyId(id) {
+    for (let i = 0; i < menu.length; i++) {
+        if (id >= menu[i].start_id && id < menu[i + 1].start_id) {
+            for (let j = 0; j < menu[i].items.length; j++) {
+                if (menu[i].items[j].id == id) {
+                    return menu[i].items[j]
+                }
+            }
+        }
+    }
+    return
+}
 module.exports = {
-    items
+    sendItemsbyCategory,
+    sendItemsbyId
 }
 
 

@@ -153,9 +153,14 @@ app.get('/handler/address/:state', (req, res) => {
 })
 
 // menu builder
-app.get('/handler/menu/:keyword', (req, res) => {
+app.get('/handler/menu/:by&:keyword', (req, res) => {
     const menu = require('./public/js/menu_functions')
-    res.send(menu.items(req.params.keyword));
+    console.log(req.params)
+    if (req.params.by == 'category') {
+        res.send(menu.sendItemsbyCategory(req.params.keyword));
+    } else if (req.params.by == 'id') {
+        res.send(menu.sendItemsbyId(req.params.keyword));
+    }
 })
 
 // cart handler
