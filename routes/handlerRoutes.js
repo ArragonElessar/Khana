@@ -121,18 +121,29 @@ router.post('/handler/cart/update', (req, res) => {
     })
 
 })
+// cart fetcher
 router.post('/handler/cart/fetch', (req, res) => {
+    // call getCart from db
     db.getCart(client, req.session.email).then(response => {
+        // return array 
         let array = [];
+        // subtotal object to fit in return array
         let subTotal = { subTotal: 0 }
+        // get menu functions
         const menuFunctions = require('../public/js/menu_functions')
+        // get items from cart {id, name, rate}
         for (let i = 0; i < response.length; i++) {
             let item = menuFunctions.sendItemsbyId(parseInt(response[i].id))
+            // add to subtotal
             subTotal.subTotal += parseInt(response[i].qty) * item.rate;
+            // set the qty parameter for item
             item["qty"] = parseInt(response[i].qty);
+            // add to array
             array.push(item)
         }
+        // push subtotal
         array.push(subTotal)
+        // return array
         res.send(array)
     })
 })

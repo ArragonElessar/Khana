@@ -83,8 +83,11 @@ async function updateCart(client, email, id, qty) {
 }
 // cart fetch
 async function getCart(client, email) {
+    // this query will fetch all the non zero items from cart table
+    // for a given email
     let ret = await client.query(`SELECT id, qty
 	FROM public.cart WHERE email='${email}' AND qty != 0;`)
+    // returns cart items
     return ret.rows
 }
 
