@@ -52,7 +52,7 @@ router.post('/handler/login', (req, res) => {
 // register handler
 router.post('/handler/register', (req, res) => {
     // create new user
-    db.create_user(client, req.body.name, req.body.email, req.body.password).then((ret) => {
+    db.createUser(client, req.body.name, req.body.email, req.body.password).then((ret) => {
         // ret is a boolean value
         if (ret) {
             // successfully created, send to log
@@ -89,7 +89,7 @@ router.post('/handler/address', (req, res) => {
     }
     // updates the address of given type and user
     if (req.body.message == 'update address') {
-        db.update_address(client, req.body.type, req.body.email, req.body.address).then(response => {
+        db.updateAddress(client, req.body.type, req.body.email, req.body.address).then(response => {
             res.send(response)
         })
     }
@@ -105,19 +105,36 @@ router.get('/handler/address/:state', (req, res) => {
 // menu builder
 router.get('/handler/menu/:by&:keyword', (req, res) => {
     // requires menu functions 
-    const menu = require('../public/js/menu_functions')
+    const menuFunctions = require('../public/js/menu_functions')
     if (req.params.by == 'category') {
-        res.send(menu.sendItemsbyCategory(req.params.keyword));
+        res.send(menuFunctions.sendItemsbyCategory(req.params.keyword));
     } else if (req.params.by == 'id') {
-        res.send(menu.sendItemsbyId(req.params.keyword));
+        res.send(menuFunctions.sendItemsbyId(req.params.keyword));
     }
 })
 
 // cart handler
-router.post('/handler/cart/', (req, res) => {
+router.post('/handler/cart/update', (req, res) => {
     // add to cart or update the cart 
-    db.updateCart(client, req.session.email, req.body.id, req.body.qty)
-    res.send(true)
+    db.updateCart(client, req.session.email, req.body.id, req.body.qty).then(() => {
+        res.send(true)
+    })
+
+})
+router.post('/handler/cart/fetch', (req, res) => {
+    db.getCart(client, req.session.email).then(response => {
+        let array = [];
+        let subTotal = { subTotal: 0 }
+        const menuFunctions = require('../public/js/menu_functions')
+        for (let i = 0; i < response.length; i++) {
+            let item = menuFunctions.sendItemsbyId(parseInt(response[i].id))
+            subTotal.subTotal += parseInt(response[i].qty) * item.rate;
+            item["qty"] = parseInt(response[i].qty);
+            array.push(item)
+        }
+        array.push(subTotal)
+        res.send(array)
+    })
 })
 
 // export the entire router to app

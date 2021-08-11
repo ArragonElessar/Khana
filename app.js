@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 // dotenv for env variables
 require('dotenv').config();
 
-// main routes coontroller file
+// main routes controller file
 const mainRoutes = require('./Controllers/main_routes')
 // handler routes file
 const handlerRoutes = require('./routes/handlerRoutes')

@@ -4,18 +4,6 @@ client object is passed from handlerRoutes.js as a parameter for every function 
 all the functions here are exported to handlerRoutes.js
 */
 
-// test function, never actually used
-const select_all = (client) => {
-    // passes a simple sql query
-    client.query('SELECT * FROM users', (err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-            console.log(JSON.stringify(row));
-        }
-        //client.end();
-    });
-}
-
 // log function
 async function log(client, email, message) {
     // logs given email, message to table: user_log 
@@ -33,7 +21,7 @@ async function select(client, out_field, in_field, in_value) {
 }
 
 // create user function
-async function create_user(client, name, email, password) {
+async function createUser(client, name, email, password) {
     // first search if user with given email already exists
     let ret = await select(client, 'id', 'email', email)
     // ret here contains the rows of id that have the same email
@@ -62,7 +50,7 @@ async function logout(client, req) {
 }
 
 // update address
-async function update_address(client, type, email, address) {
+async function updateAddress(client, type, email, address) {
     // update home/work/other (type) col of users table with address given by user 
     client.query(`UPDATE public.users
 	SET ${type} = '${address}'
@@ -93,13 +81,20 @@ async function updateCart(client, email, id, qty) {
         }
     })
 }
+// cart fetch
+async function getCart(client, email) {
+    let ret = await client.query(`SELECT id, qty
+	FROM public.cart WHERE email='${email}' AND qty != 0;`)
+    return ret.rows
+}
 
+// export all functions
 module.exports = {
-    select_all,
     select,
-    create_user,
+    createUser,
     log,
     logout,
-    update_address,
-    updateCart
+    updateAddress,
+    updateCart,
+    getCart,
 }

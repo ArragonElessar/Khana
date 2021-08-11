@@ -1,62 +1,44 @@
-/*
-<div class="accordion-item">
-    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed"
-            data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-2" aria-expanded="false"
-            aria-controls="accordion-1 .item-2"
-            style="background: var(--bs-purple);color: var(--bs-white);">Accordion Item</button>
-    </h2>
-    <div class="accordion-collapse collapse item-2" role="tabpanel" data-bs-parent="#accordion-1">
-        <div class="accordion-body">
-            <div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr></tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Item Name</td>
-                                <td>Rate</td>
-                                <td style="width: 10%;"><input type="number" style="width: 100%;"
-                                        min="0" max="5" step="1" placeholder="0"></td>
-                            </tr>
-                            <tr>
-                                <td>Item Name</td>
-                                <td>Rate</td>
-                                <td style="width: 10%;"><input type="number" style="width: 100%;"
-                                        min="0" max="5" step="1" placeholder="0"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>                                            
-*/
-/*
-$("#tr").after(`<tr><td style="width: 50%;">` + ret.name + `</td>
-        <td>`+ qty + `</td>
-        <td>₹ `+ qty * ret.rate + `</td></tr>`)
-*/
-function showCart() {
+let cartIds = []
 
+function printCart() {
+    $("#cartTable").empty();
+    $.ajax({
+        url: '/handler/cart/fetch',
+        method: 'POST',
+        data: '0',
+    }).done(function (ret) {
+        console.log(ret)
+        for (let i = 0; i < ret.length - 1; i++) {
+            cartIds.push([ret[i].id, ret[i].qty])
+            $("#cartTable").append(
+                `<tr id='` + ret[i].id + `' class="cartitems">
+                <td style="width: 50%;">` + ret[i].name + `</td>
+                <td>`+ ret[i].qty + `</td>
+                <td>₹ `+ ret[i].qty * parseInt(ret[i].rate) + `</td>
+            </tr>`
+            )
+
+        }
+        $("#subtotal").html("₹ " + ret[ret.length - 1].subTotal)
+    })
+    console.log(cartIds)
 }
-
 
 
 function cart(id) {
     let qty = $('#' + id).val()
+    console.log(qty)
     $.ajax({
-        url: '/handler/cart',
+        url: '/handler/cart/update',
         type: 'POST',
         data: {
             id: id,
             qty: qty
         }
-    }).done(ret => {
-        console.log(ret)
-        showCart(id, qty)
+    }).then(ret => {
+        if (ret == true) {
+            setTimeout(() => { printCart(); }, 500);
+        }
     })
 }
 
@@ -66,13 +48,19 @@ function getItems(category) {
     $.ajax({
         url: '/handler/menu/category&' + category
     }).done(function (ret) {
-
         for (let i = 0; i < ret.length; i++) {
+            let qtyPlaceholder = 0
+            for (let j = 0; j < cartIds.length; j++) {
+                if (ret[i].id == cartIds[j][0]) {
+                    qtyPlaceholder = cartIds[j][1];
+                }
+            }
             $("#" + category.split(' ')[0]).after(`<tr>
             <td>`+ ret[i].name + `</td>
             <td>₹ `+ ret[i].rate + `</td>
             <td style="width: 10%;">
-            <input type="number" style="width: 100%;" id="`+ ret[i].id + `" onchange="cart(` + ret[i].id + `)" min="0" max="5" step="1" placeholder="0"></td>
+            <input type="number" style="width: 100%;" id="`+ ret[i].id + `"
+            onchange="cart(` + ret[i].id + `)" min="0" max="5" step="1" placeholder="` + qtyPlaceholder + `"></td>
         </tr>`
             )
         }
@@ -85,4 +73,5 @@ $(document).ready(function () {
             getItems($(this).html())
         }
     });
+    printCart();
 })
