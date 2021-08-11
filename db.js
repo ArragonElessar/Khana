@@ -1,7 +1,8 @@
-// this file contains all the database functions for postgres
-// client object is passed from app.js as a parameter for every function call
-// all the functions here are exported to app.js
-
+/* 
+this file contains all the database functions for postgres
+client object is passed from handlerRoutes.js as a parameter for every function call
+all the functions here are exported to handlerRoutes.js
+*/
 
 // test function, never actually used
 const select_all = (client) => {
@@ -62,26 +63,28 @@ async function logout(client, req) {
 
 // update address
 async function update_address(client, type, email, address) {
-    // update home/work/other (type) col of users table with address given by 
-    // user 
+    // update home/work/other (type) col of users table with address given by user 
     client.query(`UPDATE public.users
 	SET ${type} = '${address}'
 	WHERE email='${email}';`).then(ret => {
         return true
     })
 }
+
 // cart adder
-async function cart(client, email, id, qty) {
+async function updateCart(client, email, id, qty) {
+    // check if item having given id is already there in the users cart
     client.query(`SELECT qty FROM public.cart 
     WHERE email='${email}' AND id='${id}'`).then(ret => {
         if (ret.rows.length > 0) {
-            // exists update
+            // item exists, hence update to the new quantity
             client.query(`UPDATE public.cart
             SET qty='${qty}'
             WHERE email='${email}' AND id='${id}';`).then(ret => {
                 return true;
             })
         } else {
+            // item doesn't exist, insert into cart table
             client.query(`INSERT INTO public.cart(
                 email, id, qty)
                 VALUES ('${email}', '${id}', '${qty}');`).then(ret => {
@@ -98,5 +101,5 @@ module.exports = {
     log,
     logout,
     update_address,
-    cart
+    updateCart
 }
