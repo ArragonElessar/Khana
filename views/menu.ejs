@@ -9,6 +9,7 @@
 
 <body style="background: var(--bs-gray);">
     <header>
+        <script type="text/javascript" src='js/navbar.js'></script>
         <%- include('./partials/nav.ejs') %>
     </header>
     <div class="container" style="padding: 10px;margin: 0;width: 105%;">
@@ -262,8 +263,11 @@
                                     <td id="subtotal"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><button class="btn btn-primary" type="button"
-                                            style="width: 100%;background: var(--bs-purple);">Checkout</button></td>
+                                    <td colspan="2">
+                                        <button class="btn btn-primary" type="button" id="checkoutButton"
+                                            style="width: 100%;background: var(--bs-purple);">Checkout
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

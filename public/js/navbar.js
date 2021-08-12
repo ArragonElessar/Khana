@@ -13,7 +13,7 @@ const getData = (data) => {
 
             $("#my_account").html("My Account");
             $("#address_link").html("My Address");
-            $("#address_link").attr("href", '/address')
+            $("#address_link").attr("href", '/address/home')
 
             // log out functionality
             $("#signup_link").html("Log-Out")

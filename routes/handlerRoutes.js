@@ -83,8 +83,13 @@ router.post('/handler/logout', (req, res) => {
 router.post('/handler/address', (req, res) => {
     // sends address of given type and user
     if (req.body.message == 'send address') {
-        db.select(client, req.body.type, 'email', req.body.email).then(response => {
-            res.send(response[0][req.body.type])
+        db.select(client, req.body.type, 'email', req.session.email).then(response => {
+            if (response.length > 0) {
+                res.send(response[0][req.body.type])
+            } else {
+                res.send(false)
+            }
+
         })
     }
     // updates the address of given type and user

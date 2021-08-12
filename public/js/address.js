@@ -1,8 +1,12 @@
-function address(data) {
+function address(session, Addtype) {
     // converts json string to object 
-    let info = JSON.parse(data.replace(/&#34;/g, '"'));
+    let info = JSON.parse(session.replace(/&#34;/g, '"'));
+    let addressType = JSON.parse(Addtype.replace(/&#34;/g, '"'));
+    console.log(addressType)
     $(document).ready(function () {
         // initial load of home address if available
+        $('#type [value=' + addressType + ']').attr('selected', 'true');
+        $('#type').val(addressType)
         getAddress(info.email, $("#type").val());
         // get cities when new state is selected
         $("#state_select").on("change", function () {

@@ -1,32 +1,42 @@
-const index = (req, res, session, key) => {
-    res.render('index', { title: 'Home', session, key: key })
+const index = (req, res, key) => {
+    res.render('index', { title: 'Home', session: req.session, key: key })
 }
 
-const login = (req, res, session) => {
-    res.render('login', { title: 'Login', session })
+const login = (req, res) => {
+    res.render('login', { title: 'Login', session: req.session })
 }
 
 
-const register = (req, res, session) => {
-    res.render('register', { title: 'Register', session })
+const register = (req, res) => {
+    res.render('register', { title: 'Register', session: req.session })
 }
 
-const address = (req, res, session, states_list) => {
-    if (session.login_state) {
-        res.render('address', { title: 'Address', session, states_list })
+const address = (req, res, states_list, default_type) => {
+    if (req.session.login_state) {
+        res.render('address', { title: 'Address', session: req.session, states_list, type: default_type })
     } else {
-        res.redirect('login')
+        res.redirect('/login')
     }
 
 }
 
-const menu = (req, res, session) => {
-    if (session.login_state) {
-        res.render('menu', { title: 'Menu', session })
+const menu = (req, res) => {
+    if (req.session.login_state) {
+        res.render('menu', { title: 'Menu', session: req.session })
+    }
+    else {
+        res.redirect('/login')
+    }
+}
+
+const checkout = (req, res) => {
+    if (req.session.login_state) {
+        res.render('checkout', { title: 'Checkout', session: req.session })
     }
     else {
         res.redirect('login')
     }
+
 }
 
 module.exports = {
@@ -35,4 +45,5 @@ module.exports = {
     register,
     address,
     menu,
+    checkout
 }

@@ -91,6 +91,7 @@ function getItems(category) {
 
     })
 }
+
 $(document).ready(function () {
     // on expansion only, set by the aria-expanded state
     $(".accordion-button").on("click", function () {
@@ -101,4 +102,8 @@ $(document).ready(function () {
     });
     // print the initial cart
     printCart();
+
+    $("#checkoutButton").click(function () {
+        window.location.href = '/checkout'
+    })
 })

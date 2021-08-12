@@ -44,25 +44,28 @@ app.use(session({
 // Main routes, sending session to every page as a parameter
 app.get('/', (req, res) => {
     // index route
-    mainRoutes.index(req, res, req.session, process.env.GOOGLE_API_KEY)
+    mainRoutes.index(req, res, process.env.GOOGLE_API_KEY)
 })
 app.get('/login', (req, res) => {
     // login route
-    mainRoutes.login(req, res, req.session)
+    mainRoutes.login(req, res)
 })
 app.get('/register', (req, res) => {
     // register route
-    mainRoutes.register(req, res, req.session)
+    mainRoutes.register(req, res)
 })
-app.get('/address', (req, res) => {
+app.get('/address/:type', (req, res) => {
     // get states list for address page
     const states_file = require('./public/js/states')
     // send address route with the states as a param
-    mainRoutes.address(req, res, req.session, states_file.send_states())
+    mainRoutes.address(req, res, states_file.send_states(), req.params.type)
 })
 app.get('/menu', (req, res) => {
     // load the menu page
-    mainRoutes.menu(req, res, req.session);
+    mainRoutes.menu(req, res);
+})
+app.get('/checkout', (req, res) => {
+    mainRoutes.checkout(req, res)
 })
 
 // Handler routes
