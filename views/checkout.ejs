@@ -64,37 +64,42 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="background: var(--bs-white);">
+                        <div class="col" id="payment-col" style="background: var(--bs-white);">
                             <h6>Please select a payment method</h6>
                             <form>
                                 <div class="mb-3">
                                     <h2 class="visually-hidden">Login Form</h2>
                                     <div class="mb-3">
-                                        <div class="form-check"><input class="form-check-input" type="radio"
-                                                name="payment_method" id="formCheck-6"><label class="form-check-label"
-                                                for="formCheck-2">UPI</label></div>
-                                        <div class="input-group"><input class="form-control" type="text"
-                                                style="width: 60%;" placeholder="Enter valid UPI ID"><button
-                                                class="btn btn-primary" type="button"
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="upi"
+                                                name="payment_method" id="formCheck-6">
+                                            <label class="form-check-label" for="formCheck-2">UPI</label>
+                                        </div>
+                                        <div class="visually-hidden" id="upi-input-group">
+                                            <input class="form-control" type="text" style="width: 60%;" id='upi-id'
+                                                placeholder="Enter valid UPI ID">
+                                            <button class="btn btn-primary" type="button" id="verify-upi"
                                                 style="width: 26%;margin-left: 2%;background: var(--bs-purple);margin-right: 10%;">Verify</button>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-check"><input class="form-check-input" type="radio"
-                                                name="payment_method" id="formCheck-7"><label class="form-check-label"
-                                                for="formCheck-3">Net
+                                                value="netbanking" name="payment_method" id="formCheck-7"><label
+                                                class="form-check-label" for="formCheck-3">Net
                                                 Banking</label></div>
-                                        <div class="input-group"><select class="form-select" style="margin-right: 20%;">
+                                        <div class="visually-hidden" id="net-input-group"><select class="form-select"
+                                                style="margin-right: 20%;">
                                                 <option value="select" selected="">Select Bank</option>
                                             </select></div>
                                     </div>
                                     <div class="mb-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment_method"
-                                                id="formCheck-8"><label class="form-check-label"
+                                                value="card" id="formCheck-8"><label class="form-check-label"
                                                 for="formCheck-3">Credit/Debit Card</label>
                                         </div>
-                                        <div class="row" style="margin-right: 0px;margin-left: 0px;">
+                                        <div class="visually-hidden" id="card-row"
+                                            style="margin-right: 0px;margin-left: 0px;">
                                             <div class="col-sm-7">
                                                 <div class="mb-3"><label class="form-label" for="card_holder">Card
                                                         Holder</label><input class="form-control" type="text"
@@ -147,15 +152,16 @@
                                         <td colspan="2" id="payment-label" class="visually-hidden"></td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 80%;">Sub-total</td>
-                                        <td>Amount</td>
+                                        <td style="width: 60%;">Sub-total</td>
+                                        <td id="subtotal"></td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 80%;">Total</td>
-                                        <td>Amount</td>
+                                        <td style="width: 60%;">Total</td>
+                                        <td id="total"></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2"><button class="btn btn-primary" type="button"
+                                            id="pay"
                                                 style="width: 100%;background: var(--bs-purple);">Proceed to
                                                 Pay</button></td>
                                     </tr>
@@ -170,24 +176,14 @@
                                             style="text-align: center;background: var(--bs-purple);color: var(--bs-white);">
                                             Order Summary</th>
                                     </tr>
-                                </thead>
-                                <tbody>
                                     <tr>
-                                        <td colspan="3"><button class="btn btn-primary btn-sm" type="button"
+                                        <td colspan="3">
+                                            <button class="btn btn-primary btn-sm" type="button" id="change-cart"
                                                 style="width: 100%;background: var(--bs-purple);">Make Changes</button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style="width: 50%;">Cell 1</td>
-                                        <td>Cell 2</td>
-                                        <td>Text</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cell 3</td>
-                                        <td>Cell 4</td>
-                                        <td>Text</td>
-                                    </tr>
-                                    <tr></tr>
+                                </thead>
+                                <tbody id="cartTable">
                                 </tbody>
                             </table>
                         </div>

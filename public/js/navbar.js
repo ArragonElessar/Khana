@@ -15,6 +15,9 @@ const getData = (data) => {
             $("#address_link").html("My Address");
             $("#address_link").attr("href", '/address/home')
 
+            $("#orders_link").html("Orders")
+            $("#orders_link").attr("href", '/history')
+
             // log out functionality
             $("#signup_link").html("Log-Out")
             $("#signup_link").on("click", function () {

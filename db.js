@@ -91,6 +91,20 @@ async function getCart(client, email) {
     return ret.rows
 }
 
+async function addOrder(client, order) {
+    query = `
+    INSERT INTO public.orders(
+        email, "addressType", "timeStamp", items, payment, "paymentStatus")
+        VALUES ('${order["email"]}', '${order.address}', '${order.timeStamp}', ARRAY [`
+    for (let i = 0; i < order.items.length; i++) {
+        query += `'` + order.items[i] + `'`
+    }
+    query += ` ],'${JSON.stringify(order.paymentMethod)}', '${order.paymentStatus}');`
+
+    await client.query(query)
+    return true
+}
+
 // export all functions
 module.exports = {
     select,
@@ -100,4 +114,5 @@ module.exports = {
     updateAddress,
     updateCart,
     getCart,
+    addOrder
 }

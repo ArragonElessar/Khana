@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs')%>
+    <script type="text/javascript" src='js/payment.js'></script>
+</head>
+
+<body style="background: var(--bs-gray);">
+    <main>
+        <div class="row" style="margin-right: 5%;margin-left: 5%;">
+            <div class="col-md-12">
+                <div style="background: var(--bs-white);padding: 10px;padding-top: 40px;margin-top: 15%;">
+                    <h4>This Page Simulates a payment gateway.</h4>
+                    <h3 class="text-center">Do you want to pay for your order?</h3>
+                    <div class="table-responsive" style="margin: 2px;">
+                        <table class="table">
+                            <thead>
+                                <tr></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><button class="btn btn-primary" name="confirmation" type="button" value=true style="margin: 0px;margin-left: 80%;background: var(--bs-teal);
+                                    ">Yes</button></td>
+                                    <td><button class="btn btn-primary" name="confirmation" type="button" value=false style="background: var(--bs-danger);">No</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

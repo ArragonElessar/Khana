@@ -133,7 +133,7 @@ router.post('/handler/cart/fetch', (req, res) => {
         // return array 
         let array = [];
         // subtotal object to fit in return array
-        let subTotal = { subTotal: 0 }
+        let subTotal = { subTotal: 0, tax: 0.05 }
         // get menu functions
         const menuFunctions = require('../public/js/menu_functions')
         // get items from cart {id, name, rate}
@@ -151,6 +151,22 @@ router.post('/handler/cart/fetch', (req, res) => {
         // return array
         res.send(array)
     })
+})
+
+router.post('/handler/pay', (req, res) => {
+    order = req.body
+    order["email"] = req.session.email
+    order["paymentStatus"] = false;
+    order["timeStamp"] = new Date().toLocaleString()
+    req.session["order"] = order;
+    res.send(true)
+})
+
+router.post('/handler/confirm', (req, res)=>{
+    req.session.order.paymentStatus = Boolean(req.body.status)
+    db.addOrder(client, req.session.order)
+    res.send(true)
+
 })
 
 // export the entire router to app

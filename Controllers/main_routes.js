@@ -38,6 +38,23 @@ const checkout = (req, res) => {
     }
 
 }
+const payment = (req, res) => {
+    if (req.session.login_state) {
+        res.render('payment', { title: 'Payment', session: req.session })
+    }
+    else {
+        res.redirect('login')
+    }
+}
+
+const history = (req, res) => {
+    if (req.session.login_state) {
+        res.render('history', { title: 'Orders', session: req.session })
+    }
+    else {
+        res.redirect('login')
+    }
+}
 
 module.exports = {
     index,
@@ -45,5 +62,7 @@ module.exports = {
     register,
     address,
     menu,
-    checkout
+    checkout,
+    payment,
+    history
 }

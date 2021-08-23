@@ -68,6 +68,14 @@ app.get('/checkout', (req, res) => {
     mainRoutes.checkout(req, res)
 })
 
+app.get('/payment', (req, res) => {
+    mainRoutes.payment(req, res)
+})
+
+app.get('/history', (req,res)=>{
+    mainRoutes.history(req, res)
+})
+
 // Handler routes
 app.use(handlerRoutes);
 
