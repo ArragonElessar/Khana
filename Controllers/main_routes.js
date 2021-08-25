@@ -1,3 +1,5 @@
+// review what all pages actually use the session parameters
+
 const index = (req, res, key) => {
     res.render('index', { title: 'Home', session: req.session, key: key })
 }

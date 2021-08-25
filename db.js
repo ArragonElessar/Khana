@@ -92,17 +92,30 @@ async function getCart(client, email) {
 }
 
 async function addOrder(client, order) {
+    // building the sql statement to insert order details into orders table
     query = `
     INSERT INTO public.orders(
-        email, "addressType", "timeStamp", items, payment, "paymentStatus")
-        VALUES ('${order["email"]}', '${order.address}', '${order.timeStamp}', ARRAY [`
+        email, "addressType", "timeStamp", items, payment, "status")
+        VALUES ('${order.email}', '${order.address}', '${order.timeStamp}', ARRAY [`
     for (let i = 0; i < order.items.length; i++) {
-        query += `'` + order.items[i] + `'`
+        query += `'` + order.items[i] + `', `
     }
-    query += ` ],'${JSON.stringify(order.paymentMethod)}', '${order.paymentStatus}');`
-
+    query = query.slice(0,-2)
+    query += ` ],'${JSON.stringify(order.paymentMethod)}', '${order.status}');`
+    
+    // send to database, table orders
     await client.query(query)
+
+    // since all the cart items are purchased (successfully/unsuccesfully), remove them from the cart table
+    client.query(`DELETE FROM public.cart
+	WHERE email='${order.email}'`)
     return true
+}
+
+async function getOrders(client, email) {
+    let response = await client.query(`
+    SELECT "addressType", "timeStamp", items, payment, "status" FROM public.orders WHERE email = '${email}'`)
+    return response.rows
 }
 
 // export all functions
@@ -114,5 +127,6 @@ module.exports = {
     updateAddress,
     updateCart,
     getCart,
-    addOrder
+    addOrder,
+    getOrders
 }

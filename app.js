@@ -78,24 +78,3 @@ app.get('/history', (req,res)=>{
 
 // Handler routes
 app.use(handlerRoutes);
-
-
-
-
-// Google places api
-/*app.post('/places', (req, res) => {
-    const axios = require('axios')
-    const URL = req.body.str;
-    try {
-        axios.get(URL).then(ret => {
-            console.log(ret.data);
-            res.send(ret.data)
-        }).catch(err => {
-            console.log(err)
-        })
-    } catch (err) {
-        res.send(err)
-    }
-
-})
-*/

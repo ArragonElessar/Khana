@@ -154,19 +154,33 @@ router.post('/handler/cart/fetch', (req, res) => {
 })
 
 router.post('/handler/pay', (req, res) => {
+    // get order fields from request 
     order = req.body
     order["email"] = req.session.email
-    order["paymentStatus"] = false;
+    order["status"] = false;
     order["timeStamp"] = new Date().toLocaleString()
+    // set session order field so that payments page can confirm
     req.session["order"] = order;
     res.send(true)
 })
 
 router.post('/handler/confirm', (req, res)=>{
-    req.session.order.paymentStatus = Boolean(req.body.status)
-    db.addOrder(client, req.session.order)
+    // set status field
+    req.session.order.status = Boolean(req.body.status)
+    // add the new order
+    db.addOrder(client, req.session.order).then(response =>{
+        console.log("order done!")
+        delete req.session.order
+    })
+    console.log("req order" + req.session.order)
     res.send(true)
+})
 
+router.get('/handler/orders', (req, res)=>{
+    db.getOrders(client, req.session.email).then(orders=>{
+        res.send(orders)
+    })
+    
 })
 
 // export the entire router to app

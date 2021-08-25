@@ -3,147 +3,22 @@
 
 <head>
     <%- include('./partials/head.ejs')%>
-    <script type="text/javascript" src='js/history.js'></script>
+        <script type="text/javascript" src='js/history.js'></script>
 </head>
 
 <body style="background: var(--bs-gray);">
     <header>
         <script type="text/javascript" src='js/navbar.js'></script>
-        <script src="js/bs-init.js"></script>
         <%- include('./partials/nav.ejs') %>
+            <script src="js/bs-init.js"></script>
+
     </header>
     <main style="margin-top: 5px;margin-bottom: 5px;">
-        <div style="background: var(--bs-white);border-color: var(--bs-purple);margin-bottom: 2.5px;margin-top: 2.5px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="background: var(--bs-white);margin: 5px;">
-                            <h3>At &lt;date&gt;, &lt;order_status&gt;</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div style="background: var(--bs-white);">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Delivered to: &lt;address&gt;</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Order Total: &lt;total&gt;</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paid Using: &lt;payment method &amp; details&gt;</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div style="background: var(--bs-white);">
-                            <div class="table-responsive" style="height: 65%;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="3" style="text-align: center;background: var(--bs-purple);color: var(--bs-white);">Order Summary</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr></tr>
-                                        <tr>
-                                            <td style="width: 50%;">Cell 1</td>
-                                            <td>Cell 2</td>
-                                            <td>Text</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cell 3</td>
-                                            <td>Cell 4</td>
-                                            <td>Text</td>
-                                        </tr>
-                                        <tr></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="background: var(--bs-white);margin-top: 2.5px;margin-bottom: 2.5px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="background: var(--bs-white);margin: 5px;">
-                            <h3>At &lt;date&gt;, &lt;order_status&gt;</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div style="background: var(--bs-white);">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Delivered to: &lt;address&gt;</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Order Total: &lt;total&gt;</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paid Using: &lt;payment method &amp; details&gt;</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div style="background: var(--bs-white);">
-                            <div class="table-responsive" style="height: 65%;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="3" style="text-align: center;background: var(--bs-purple);color: var(--bs-white);">Order Summary</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr></tr>
-                                        <tr>
-                                            <td style="width: 50%;">Cell 1</td>
-                                            <td>Cell 2</td>
-                                            <td>Text</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cell 3</td>
-                                            <td>Cell 4</td>
-                                            <td>Text</td>
-                                        </tr>
-                                        <tr></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="history-div">
         </div>
     </main>
     <%- include('./partials/footer.ejs') %>
-    
+
 </body>
 
 </html>

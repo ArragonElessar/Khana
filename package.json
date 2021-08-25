@@ -9,5 +9,9 @@
     "express-session": "^1.17.2",
     "morgan": "^1.10.0",
     "pg": "^8.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   }
 }
