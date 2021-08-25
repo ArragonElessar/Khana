@@ -113,8 +113,10 @@ async function addOrder(client, order) {
 }
 
 async function getOrders(client, email) {
+    // fetch orders of a particular customer by email
     let response = await client.query(`
     SELECT "addressType", "timeStamp", items, payment, "status" FROM public.orders WHERE email = '${email}'`)
+    // return response
     return response.rows
 }
 

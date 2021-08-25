@@ -16,7 +16,6 @@ function updatePayment(paymentMethod) {
     if (paymentMethod.mode == "upi") {
         $('#payment-label').removeClass('visually-hidden')
         $('#payment-label').html(paymentMethod.details.id.toString())
-
     }
 
 }
@@ -171,7 +170,6 @@ $(document).ready(function () {
         }
         else{
             // everything well, proceed
-            console.log(order)
             $.post({
                 url: "/handler/pay",
                 data:order

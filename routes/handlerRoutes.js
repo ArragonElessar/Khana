@@ -153,6 +153,7 @@ router.post('/handler/cart/fetch', (req, res) => {
     })
 })
 
+// handler for payments
 router.post('/handler/pay', (req, res) => {
     // get order fields from request 
     order = req.body
@@ -164,6 +165,7 @@ router.post('/handler/pay', (req, res) => {
     res.send(true)
 })
 
+// handler for confirmation of payment
 router.post('/handler/confirm', (req, res)=>{
     // set status field
     req.session.order.status = Boolean(req.body.status)
@@ -172,11 +174,13 @@ router.post('/handler/confirm', (req, res)=>{
         console.log("order done!")
         delete req.session.order
     })
-    console.log("req order" + req.session.order)
     res.send(true)
 })
 
+
+// fetch order handler
 router.get('/handler/orders', (req, res)=>{
+    // get orders from database on request and send the response
     db.getOrders(client, req.session.email).then(orders=>{
         res.send(orders)
     })

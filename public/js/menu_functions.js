@@ -1,3 +1,6 @@
+// here the menu items are stored as a JS object
+// The whole object is never sent together so the efficiency is good
+
 const menu = [{
     start_id: 1000,
     category: 'Fries and Sides',
@@ -393,7 +396,10 @@ const menu = [{
         { name: 'Chicken McNuggets - 20 Pcs', rate: '304', id: 1152 }
     ]
 }]
+ // only these functions can use the data
 
+
+ // returns all the items by category
 function sendItemsbyCategory(category) {
     for (let i = 0; i < menu.length; i++) {
         if (menu[i].category == category) {
@@ -402,6 +408,8 @@ function sendItemsbyCategory(category) {
     }
     return [];
 }
+
+// returns a specific item by id, based on an improvised search method
 function sendItemsbyId(id) {
     for (let i = 0; i < menu.length; i++) {
         if (id >= menu[i].start_id && id < menu[i + 1].start_id) {
@@ -414,6 +422,8 @@ function sendItemsbyId(id) {
     }
     return
 }
+
+// export these functions
 module.exports = {
     sendItemsbyCategory,
     sendItemsbyId

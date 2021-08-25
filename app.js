@@ -65,14 +65,17 @@ app.get('/menu', (req, res) => {
     mainRoutes.menu(req, res);
 })
 app.get('/checkout', (req, res) => {
+    // load checkout page
     mainRoutes.checkout(req, res)
 })
 
 app.get('/payment', (req, res) => {
+    // load payment page
     mainRoutes.payment(req, res)
 })
 
 app.get('/history', (req,res)=>{
+    // load order history page
     mainRoutes.history(req, res)
 })
 
